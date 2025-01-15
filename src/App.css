@@ -1,0 +1,44 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+
+.clouds {
+  background: #68E2F3;
+  background: -moz-linear-gradient(top, #68E2F3 0%, #56C9DA 100%);
+  background: -webkit-linear-gradient(top, #68E2F3 0%, #56C9DA 100%);
+  background: linear-gradient(to bottom, #68E2F3 0%, #56C9DA 100%);
+}
+
+.rain, .drizzle {
+  background: #7BE0FF;
+  background: -moz-linear-gradient(top, #7BE0FF 0%, #54c1ff 100%);
+  background: -webkit-linear-gradient(top, #7BE0FF 0%, #54c1ff 100%);
+  background: linear-gradient(to bottom, #7BE0FF 0%, #54c1ff 100%);
+}
+
+.clear {
+  background: #FCCE81;
+  background: -moz-linear-gradient(top, #FCCE81 0%, #F7AF7C 100%);
+  background: -webkit-linear-gradient(top, #FCCE81 0%, #F7AF7C 100%);
+  background: linear-gradient(to bottom, #FCCE81 0%, #F7AF7C 100%);
+}
+.loading-anim {
+  animation: scaleLoop 2s infinite ease-in-out;
+}
+
+@keyframes scaleLoop {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
