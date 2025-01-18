@@ -43,7 +43,7 @@ const AppMain = () => {
                 const data = await response.json();
                 setShowInputError(false);
                 setWeatherData(data) //data grabbed will be stored in weatherData. this contains all of the info
-                updateWeatherDisplay();
+                updateWeatherDisplay(data.weather[0].main); // "weather" is actually an array, usually with only one item. this grabs the first item in the array
                 localStorage.setItem('cityName', data.name); // storing the city name in local storage. this will be used to fetch the data for that city/location when the page is first loaded.
                 console.log('Stored City name: ', data.name);
                 console.log('Weather data: ', data);
@@ -63,12 +63,11 @@ const AppMain = () => {
         fetchWeatherData(input);
     }
 
-    const updateWeatherDisplay = () => {
-        if (weatherData) {
-            setWeatherCondition(weatherData.weather[0].main.toLowerCase());
-            console.log('Weather condition for image use: ', weatherCondition);
-            setWeatherImage(WeatherImages[weatherCondition]);
-        }
+    const updateWeatherDisplay = (condition) => {
+            condition = condition.toLowerCase();
+            setWeatherCondition(condition);
+            console.log('Weather condition for image use: ', condition);
+            setWeatherImage(WeatherImages[condition]);
     }
 
     const startAutoRefresh = () => {
@@ -115,7 +114,7 @@ const AppMain = () => {
                 {/* <button class name="bg-red-500"onClick={() => {localStorage.removeItem('cityName')}}>Delete local data</button> */}
 
             </div>
-            <img  src={weatherImage} alt="placeholder for Weather Visual" style={{ height: "100px" }} className="mx-auto mt-4" />
+            <img  src={weatherImage} alt="placeholder for Weather Visual" style={{ minHeight: "100px" }} className="mx-auto mt-4" />
             {grabbingData ?
                 <div>
                     <div className='loading-anim'>Loading...</div>

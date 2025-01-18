@@ -10,8 +10,6 @@ const kelvinToFahrenheit = (kelvin) => {
 
 const mpsTomph = (mps) => (mps * 2.23694).toFixed(1); // shorter name keeps things a bit cleaner
 
-
-
 const convertNickname = (input) => {
     return nicknames[input.toLowerCase()] || input;
     // uses the nicknames.js file to convert common shorthand
