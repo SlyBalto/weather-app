@@ -10,7 +10,7 @@
   background: linear-gradient(to bottom, #68E2F3 0%, #56C9DA 100%);
 }
 
-.rain, .drizzle {
+.rain, .drizzle, .snow {
   background: #7BE0FF;
   background: -moz-linear-gradient(top, #7BE0FF 0%, #54c1ff 100%);
   background: -webkit-linear-gradient(top, #7BE0FF 0%, #54c1ff 100%);

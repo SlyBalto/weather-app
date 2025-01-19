@@ -35,7 +35,7 @@ const AppMain = () => {
                 if (!response.ok) {
                     console.log(response)
                     if (response.status === 404) {
-                        showCityNotFound();
+                        setShowInputError(true)
                     }
                     throw new Error('Network response was not ok');
                 }
@@ -81,18 +81,12 @@ const AppMain = () => {
         }
     }
 
-    const showCityNotFound = () => {
-        setShowInputError(true);
-        // if the error message timeout is still active, this clears it
-        if (showCityNotFound.timeout) {
-            clearTimeout(showCityNotFound.timeout);
+    const handleInputChange = () => {
+        const inputValue = locationInputRef.current?.value || "";
+        if (inputValue.trim() !== "") {
+          setShowInputError(false); // Disable error when the user has something typed into input
         }
-        // this sets a timeout to clear the error message after a few seconds
-        showCityNotFound.timeout = setTimeout(() => {
-            setShowInputError(false);
-            showCityNotFound.timeout = null; // reset the timeout reference
-        }, secondsToMs(4));
-    }
+      };
 
     const clearInput = () => {
         locationInputRef.current.value = ''; // clears the input field
@@ -104,8 +98,15 @@ const AppMain = () => {
                 <form className='flex flex-row justify-center' onSubmit={(e) => {
                     e.preventDefault(); handleLocationSearch(e.target.elements[0].value);
                 }}>
-                    <input ref={locationInputRef} type="text" placeholder="Enter location"
-                        className="text-box p-2 rounded text-white" style={{ width: "200px" }} />
+                    <input ref={locationInputRef}
+                        type="text"
+                        placeholder="Enter location"
+                        className="text-box p-2 rounded text-white"
+                        style={{ width: "200px" }}
+                        onChange={handleInputChange} //writing this way prevents immediate firing of the function when it's rendered.
+                        // if we needed to pass parameters, we could make a arrow function inside of onChange that lets us pass
+                        // the parameters we need without on-render firing.
+                        />
                     <button type='submit' className="flex-none w-30" style={{ width: "50px" }}>
                         <img src="https://via.placeholder.com/20" alt="sub" className='object-cover' />
                     </button>
