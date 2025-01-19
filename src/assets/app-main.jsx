@@ -111,7 +111,10 @@ const AppMain = () => {
                         <img src="https://via.placeholder.com/20" alt="sub" className='object-cover' />
                     </button>
                 </form>
+                <div className='mt-2' style={{ height: "15px"}}>
                 {showInputError ? <p className="text-orange-700">Location not found!</p> : <div></div>}
+                </div>
+                
                 {/* <button class name="bg-red-500"onClick={() => {localStorage.removeItem('cityName')}}>Delete local data</button> */}
 
             </div>
