@@ -3,7 +3,7 @@
 @tailwind utilities; */
 
 
-.clouds {
+.clouds, .mist {
   background: #68E2F3;
   background: -moz-linear-gradient(top, #68E2F3 0%, #56C9DA 100%);
   background: -webkit-linear-gradient(top, #68E2F3 0%, #56C9DA 100%);
