@@ -44,7 +44,7 @@ const AppMain = () => {
                 setShowInputError(false);
                 setWeatherData(data) //data grabbed will be stored in weatherData. this contains all of the info
                 updateWeatherDisplay(data.weather[0].main); // "weather" is actually an array, usually with only one item. this grabs the first item in the array
-                localStorage.setItem('cityName', data.name); // storing the city name in local storage. this will be used to fetch the data for that city/location when the page is first loaded.
+                localStorage.setItem('cityName', data.name); // storing the city name in local` storage. this will be used to fetch the data for that city/location when the page is first loaded.
                 console.log('Stored City name: ', data.name);
                 console.log('Weather data: ', data);
 
@@ -56,20 +56,17 @@ const AppMain = () => {
             }
         }
 };
-
     const handleLocationSearch = (input) => {
         console.log('Location search: ', input);
         clearInput(); // auto clears the input.
         fetchWeatherData(input);
     }
-
     const updateWeatherDisplay = (condition) => {
             condition = condition.toLowerCase();
             setWeatherCondition(condition);
             console.log('Weather condition for image use: ', condition);
             setWeatherImage(WeatherImages[condition]);
     }
-
     const startAutoRefresh = () => {
         if (weatherData) {
         setInterval(() => {
@@ -92,33 +89,49 @@ const AppMain = () => {
         locationInputRef.current.value = ''; // clears the input field
     }
     return (
-        <div className={`flex flex-col justify-center items-center content-start round shadow-lg text-xl ${weatherCondition}`} style={{ height: "550px", width: "300px", borderRadius: "35px", color: "#292d4c"}}> {/* Added w class for width limitation */}
-            <div className="p-4" style={{ width: "225px" }}>   {/* Added w class for width limitation */}
-                {weatherData ? <h2 className="text-left">{`${weatherData.name}${weatherData.sys.country ? `, ${weatherData.sys.country}` : ''}`}</h2> : <h2></h2>}
+        // this will be the background for the app
+        <div id='background' className={`absolute inset-0 flex flex-col justify-center content-start items-center ${weatherCondition}`}>
+        <div className={`flex flex-col p-20 justify-center items-center content-start round text-xl ${weatherCondition}`} style={{ height: "600px", width: "350px", boxShadow: "20px 25px 40px 10px rgba(0,0,0,0.2)", borderRadius: "35px", color: "#292d4c"}}> {/* Added w class for width limitation */}
+            <div style={{ width: "250px" }}>   {/* Added w class for width limitation */}
+                {weatherData ? (
+                    <div className='flex flex-row justify-left items-center' style={{width: "250px"}}>
+                        <img src='bx-current-location.svg' style={{ height: "20px", marginRight: "4px"}} />
+                        <h2 className="text-left">{`${weatherData.name}${weatherData.sys.country ? `, ${weatherData.sys.country}` : ''}`}</h2>
+                    </div>
+                ) : <h2></h2>}
                 <form className='flex flex-row justify-center' onSubmit={(e) => {
                     e.preventDefault(); handleLocationSearch(e.target.elements[0].value);
                 }}>
-                    <input ref={locationInputRef}
-                        type="text"
-                        placeholder="Enter location"
-                        className="text-box p-2 rounded text-white"
-                        style={{ width: "200px" }}
-                        onChange={handleInputChange} //writing this way prevents immediate firing of the function when it's rendered.
-                        // if we needed to pass parameters, we could make a arrow function inside of onChange that lets us pass
-                        // the parameters we need without on-render firing.
-                        />
-                    <button type='submit' className="flex-none w-30" style={{ width: "50px" }}>
-                        <img src="https://via.placeholder.com/20" alt="sub" className='object-cover' />
-                    </button>
+
+                    <div className='border-2 border-black rounded-full flex flex-row justify-center items-center'>
+                        <input
+                            ref={locationInputRef}
+                            type="text"
+                            placeholder="Enter location"
+                            className="text-box p-2 rounded text-black bg-transparent"
+                            style={{ width: "250px", }}
+                            onChange={handleInputChange} // writing this way prevents immediate firing of the function when it's rendered.
+                            // if we needed to pass parameters, we could make a arrow function inside of onChange that lets us pass
+                            // the parameters we need without on-render firing. it would look like this:
+                            // onChange={(e) => handleInputChange(e, 'param1', 'param2')}, the e is the event object. this function also will not fire on render.
+                            />
+                        <button type='submit' className="flex-none flex justify-center items-center bg-transparent" style={{ width: "40px", height: '40px', marginLeft: "-50px"}}>
+                            <img src="bx-search-alt.svg" alt="sub" className='object-cover' />
+                        </button>
+                    </div>
                 </form>
                 <div className='mt-2' style={{ height: "15px"}}>
                 {showInputError ? <p className="text-orange-700">Location not found!</p> : <div></div>}
                 </div>
-                
+
                 {/* <button class name="bg-red-500"onClick={() => {localStorage.removeItem('cityName')}}>Delete local data</button> */}
 
             </div>
-            <img  src={weatherImage} alt="placeholder for Weather Visual" style={{ minHeight: "100px" }} className="mx-auto mt-4" />
+            {weatherData ?
+                <div className='flex flex-col justify-center items-center content-start' style={{ minHeight: "100px"}}>
+                    <img  src={weatherImage} alt="placeholder for Weather Visual" style={{ minHeight: "100px", maxHeight: "100px", maxWidth: "120px" }} className="mx-auto mt-4" />
+                </div> : <div></div>}
+
             {grabbingData ?
                 <div>
                     <div className='loading-anim'>Loading...</div>
@@ -129,13 +142,13 @@ const AppMain = () => {
                     <h1 className="text-center mt-2 text-7xl font-bold">{kelvinToFahrenheit(weatherData.main.temp)}°</h1>
                     <h4 className="text-center mt-2">{todaysDate}</h4>
                     <div className="flex flex-row justify-center space-x-4 mt-4">
-                        <InfoBox title="Humidity" info={`${(weatherData.main.humidity)}%`} />
-                        <InfoBox title="Wind" info={`${mpsTomph(weatherData.wind.speed)}mph`} />
+                        <InfoBox title="Humidity" image="bx-droplet.svg" info={`${(weatherData.main.humidity)}%`} />
+                        <InfoBox title="Wind" image="bx-wind.svg" info={`${mpsTomph(weatherData.wind.speed)}mph`} />
                     </div>
-
                 </div> : ''}
 
         </div>
+    </div>
     );
 };
 

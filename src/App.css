@@ -23,9 +23,40 @@
   background: -webkit-linear-gradient(top, #FCCE81 0%, #F7AF7C 100%);
   background: linear-gradient(to bottom, #FCCE81 0%, #F7AF7C 100%);
 }
+
+#background.clouds, #background.mist {
+  background: #68E2F3;
+  background: -moz-linear-gradient(left, #68E2F3 0%, #56C9DA 100%);
+  background: -webkit-linear-gradient(left, #68E2F3 0%, #56C9DA 100%);
+  background: linear-gradient(to right, #68E2F3 0%, #56C9DA 100%);
+}
+
+#background.rain, #background.drizzle, #background.snow {
+  background: #7BE0FF;
+  background: -moz-linear-gradient(left, #7BE0FF 0%, #54c1ff 100%);
+  background: -webkit-linear-gradient(left, #7BE0FF 0%, #54c1ff 100%);
+  background: linear-gradient(to right, #7BE0FF 0%, #54c1ff 100%);
+}
+
+#background.clear {
+  background: #FCCE81;
+  background: -moz-linear-gradient(left, #FCCE81 0%, #F7AF7C 100%);
+  background: -webkit-linear-gradient(left, #FCCE81 0%, #F7AF7C 100%);
+  background: linear-gradient(to right, #FCCE81 0%, #F7AF7C 100%);
+}
+
 .loading-anim {
   animation: scaleLoop 2s infinite ease-in-out;
 }
+
+input::placeholder {
+  color: #2a292e; /* Light gray */
+}
+
+nput::-webkit-input-placeholder { color: rgb(42, 41, 46); } /* Chrome, Safari */
+input:-moz-placeholder { color: #2a292e; } /* Firefox 19+ */
+input::-moz-placeholder { color: #2a292e; } /* Firefox 4-18 */
+input:-ms-input-placeholder { color: #2a292e; } /* Internet Explorer */
 
 @keyframes scaleLoop {
   0%, 100% {
