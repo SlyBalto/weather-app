@@ -4,7 +4,6 @@
 A simple, fun weather app powered by Open Weather API
 
 ## 🎥 Demonstration
-
 [Watch a demo for the app in action](https://www.youtube.com/watch?v=TDqI4WH5vI8)
 
 ## 🚀 Built With
